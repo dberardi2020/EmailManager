@@ -1,7 +1,7 @@
 from beeprint import pp
 
-class Mailbox:
-    def __init__(self):
+# class Mailbox:
+#     def __init__(self):
 
 class Message:
     def __init__(self, msg):
