@@ -17,16 +17,12 @@ class Credentials:
             username = input("Username: ")
             password = input("Password: ")
 
-            data = {
-                "username": username,
-                "password": password,
-            }
+            credentials = Credentials(username, password)
 
             with open('credentials.json', 'w') as outfile:
-                json.dump(data, outfile)
-        else:
-            data = json.load(open("credentials.json"))
-            username = data["username"]
-            password = data["password"]
+                json.dump(credentials.__dict__, outfile)
 
-        return Credentials(username, password)
+            return credentials
+        else:
+            credentials = json.load(open("credentials.json"))
+            return Credentials(**credentials)
