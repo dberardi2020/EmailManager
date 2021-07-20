@@ -7,6 +7,10 @@ class Credentials:
         self.username = username
         self.password = password
 
+    def print(self):
+        print("Username: ", self.username)
+        print("Password: ", self.password)
+
     @staticmethod
     def get_credentials():
         if not path.exists("credentials.json"):

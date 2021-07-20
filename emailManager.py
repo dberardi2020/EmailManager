@@ -7,6 +7,8 @@ credentials = Credentials.get_credentials()
 username = credentials.username
 password = credentials.password
 
+credentials.print()
+
 mailbox = MailBox('imap.gmail.com').login(username, password, initial_folder='INBOX')
 
 
