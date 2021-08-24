@@ -1,11 +1,13 @@
 from imap_tools import MailBox
 from tinydb import TinyDB, Query
 from credentialUtils import Credentials
+from stats import Stats
 import logging
 
-# Set up logging and db
+# Set up logging, db, and stats
 logging.basicConfig(level=logging.DEBUG)
 db = TinyDB('db.json')
+stats = Stats()
 
 # Load credentials, obtain if needed
 credentials = Credentials.get_credentials()
@@ -26,6 +28,7 @@ for msg in mail:
     else:
         logging.info(f"Adding {msg.from_} to DB")
         db.insert({'email': msg.from_})
+        stats.incUnsubsAdded()
 
 # Purge Unsub folder
 mailbox.delete([msg.uid for msg in mail])
@@ -39,8 +42,12 @@ mail = mailbox.fetch()
 # any email address found in the db
 for msg in mail:
     logging.info(f"Checking email: {msg.from_}")
+    stats.incEmailsChecked()
     if db.contains(Query().email == msg.from_):
         logging.info(f"Deleting email")
         mailbox.delete(msg.uid)
+        stats.incEmailsDeleted()
+
+stats.report()
 
 logging.info("Operation completed successfully")
