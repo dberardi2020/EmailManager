@@ -23,15 +23,14 @@ logging.info("Logged into Gmail successfully")
 
 # Populate db with new email addresses to unsub from
 for msg in mail:
+    mailbox.delete(msg.uid)
+    logging.info(f"Deleting: ")
     if db.contains(Query().email == msg.from_):
         logging.info(f"{msg.from_} already in DB")
     else:
         logging.info(f"Adding {msg.from_} to DB")
         db.insert({'email': msg.from_})
         stats.incUnsubsAdded()
-
-# Purge Unsub folder
-mailbox.delete([msg.uid for msg in mail])
 
 # Set current mailbox folder to Inbox
 mailbox.folder.set("INBOX")
