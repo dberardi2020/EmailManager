@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  emailmanager:
+    image: emailmanager:latest
+    volumes:
+      - ./:/app
+    build: 
+      context: .
+      dockerfile: ./Dockerfile

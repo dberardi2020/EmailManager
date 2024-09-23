@@ -9,6 +9,9 @@ logging.basicConfig(level=logging.DEBUG)
 db = TinyDB('db.json')
 stats = Stats()
 
+# For debugging docker
+logging.info("Start of Execution")
+
 # Load credentials, obtain if needed
 credentials = Credentials.get_credentials()
 logging.info("Successfully retrieved credentials")

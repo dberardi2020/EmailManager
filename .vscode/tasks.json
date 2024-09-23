@@ -1,0 +1,52 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Container - Dev",
+            "command": "docker run --rm -it -v ${cwd}:/app emailmanager",
+            "type": "shell",
+            "args": [],
+            "presentation": {
+                "reveal": "always"
+            },
+            "runOptions": {
+                "runOn": "default"
+            },
+            "group": "test"
+        },
+        {
+            "label": "Run Container - Production",
+            "command": "docker run --rm -it emailmanager",
+            "type": "shell",
+            "args": [],
+            "presentation": {
+                "reveal": "always"
+            },
+            "runOptions": {
+                "runOn": "default"
+            },
+            "group": "none"
+        },
+        {
+            "label": "Build Image",
+            "command": "docker build -t emailmanager:${input:tag} .",
+            "type": "shell",
+            "args": [],
+            "presentation": {
+                "reveal": "always"
+            },
+            "runOptions": {
+                "runOn": "default"
+            },
+            "group": "build"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "tag",
+            "type": "promptString",
+            "default": "latest",
+            "description": "Desired image tag"
+        }
+    ]
+}
